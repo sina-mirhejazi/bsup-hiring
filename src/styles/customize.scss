@@ -1,0 +1,26 @@
+@import "variables";
+@import "imports";
+@import "mixnis";
+
+@for $level from 0 through 5 {
+  .card-l-#{$level} {
+    @if $level < 1 {
+      box-shadow: none;
+    } @else {
+      box-shadow: bottom-shadow($level), top-shadow($level);
+    }
+  }
+}
+
+$steps: (0, 1, 2, 3, 4, 5, 10, 15, 20, 25, 30, 40, 50, 60, 70, 80, 90, 100, 150);
+
+@each $prop, $abbrev in (margin: m, padding: p) {
+  @each $direction, $d-abbrev in (top: t, right: r, bottom: b, left: l) {
+    @each $step in $steps {
+      .#{$abbrev}-#{$d-abbrev}-#{$step} {
+        #{$prop}-#{$direction}: #{$step}px;
+      }
+    }
+  }
+}
+

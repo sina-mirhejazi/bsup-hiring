@@ -9,10 +9,9 @@
 <script>
 // @ is an alias to /src
 import HelloWorld from '@/components/HelloWorld.vue';
-import User from '@/services/apis/user';
 
 export default {
-  name: 'home',
+  name: 'Home',
   components: {
     HelloWorld,
   },
@@ -21,7 +20,7 @@ export default {
       this.$notify({
         title: 'Hi',
         message: 'This is a notify',
-        type: 'warning',
+        type: 'primary',
       });
     },
   },
