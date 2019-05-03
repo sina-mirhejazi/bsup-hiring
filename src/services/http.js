@@ -3,11 +3,8 @@ import axios from 'axios';
 export default class HTTP {
     axios = null;
 
-    constructor({ baseURL, withCredentials }) {
-      this.axios = axios.create({
-        baseURL,
-        withCredentials,
-      });
+    constructor(axiosConfig) {
+      this.axios = axios.create(axiosConfig);
     }
 
     get(uri, args) {

@@ -6,9 +6,14 @@
               <div v-if="title" class="alert-body__title font-weight-bold">{{title}}</div>
               <p class="alert-body__message">{{message}}</p>
             </div>
-            <button v-if="!this.duration" @click="close" class="alert__button ml-3">
-              <font-awesome-icon icon="times"/>
-            </button>
+          <button
+            v-if="!this.duration"
+            @click="close"
+            type="button"
+            class="close alert__button ml-3"
+            aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
     </transition>
 </template>

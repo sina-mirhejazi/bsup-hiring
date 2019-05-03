@@ -1,30 +1,34 @@
+/* eslint-disable no-param-reassign */
+import Vue from 'vue';
 import AlertComponent from '@/components/Alert.vue';
 
-export default {
-  install(Vue) {
-    // eslint-disable-next-line no-param-reassign
-    Vue.prototype.$notify = ({
+export const notify = ({
+  title,
+  message,
+  type = 'primary',
+  duration = 0,
+  withIcon = true,
+} = {}) => {
+  const Alert = Vue.extend(AlertComponent);
+
+  const alert = new Alert({
+    data: {
       title,
       message,
-      type = 'primary',
-      duration = 0,
-      withIcon = true,
-    } = {}) => {
-      const Alert = Vue.extend(AlertComponent);
+      type,
+      duration,
+      withIcon,
+    },
+  });
 
-      const notify = new Alert({
-        data: {
-          title,
-          message,
-          type,
-          duration,
-          withIcon,
-        },
-      });
+  alert.$mount();
 
-      notify.$mount();
+  document.body.appendChild(alert.$el);
+};
 
-      document.body.appendChild(notify.$el);
-    };
+export default {
+  install(vue) {
+    vue.notify = notify;
+    vue.prototype.$notify = notify;
   },
 };

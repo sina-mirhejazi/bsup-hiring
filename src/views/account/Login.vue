@@ -2,7 +2,7 @@
   <div class="login-page d-flex justify-content-center align-items-center">
     <div class="login-page__card card border-primary p-l-50 p-r-50 p-t-80 p-b-30 card-l-1">
       <div class="card-body">
-        <h1 class="card-body__title m-b-80">Login</h1>
+        <h1 class="card-body__title m-b-80">Welcome</h1>
         <a class="card-body__button" :href="authURL">Authorize</a>
       </div>
     </div>
@@ -31,6 +31,7 @@ export default {
 
   background-image: url('../../assets/login-background.jpg');
   background-size: cover;
+  background-position: center;
 
   &::before {
     content: "";
@@ -41,7 +42,7 @@ export default {
     top: 0;
     left: 0;
     background: rgba(93,84,240,0.5);
-    background: linear-gradient(left, rgba(0,168,255,0.5), rgba(185,0,255,0.5));
+    background: linear-gradient(to right, rgba(0,168,255,0.5), rgba(185,0,255,0.5));
     pointer-events: none;
   }
 
