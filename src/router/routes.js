@@ -2,6 +2,10 @@ export default [
   {
     path: '/',
     name: 'home',
+    component: () => import(/* webpackChunkName: "home" */ '@/views/home/Layout.vue'),
+    meta: {
+      auth: true,
+    },
   },
   {
     path: '/login',
