@@ -60,8 +60,6 @@ export default class HTTP {
         request.params = body;
       }
 
-      console.log(request);
-
       let res;
 
       try {

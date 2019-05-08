@@ -60,7 +60,6 @@ export default {
     },
     confirm() {
       this.$emit('confirm');
-      this.$emit('update:visibility', false);
     },
   },
 };

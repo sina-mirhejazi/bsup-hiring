@@ -18,19 +18,55 @@
     <Modal :visibility.sync="addBookVisibility" @confirm="handleAddBook">
       <form ref="newBookFormRef">
         <div class="form-group">
-          <input class="form-control" v-model="newBookModel.title" prop="title" placeholder="Title">
+          <input
+            class="form-control"
+            v-model="newBookModel.title"
+            prop="title"
+            placeholder="Title">
+          <small
+            v-if="messages.title"
+            class="form-text text-danger">{{messages.title}}</small>
         </div>
         <div class="form-group">
-          <input class="form-control" v-model="newBookModel.author" prop="author" placeholder="Author">
+          <input
+            class="form-control"
+            v-model="newBookModel.author"
+            prop="author"
+            placeholder="Author">
+          <small
+            v-if="messages['author']"
+            class="form-text text-danger">{{messages['author']}}</small>
         </div>
         <div class="form-group">
-          <input type="number" class="form-control" v-model="newBookModel.price" prop="price" placeholder="Price">
+          <input
+            type="number"
+            class="form-control"
+            v-model="newBookModel.price"
+            prop="price"
+            placeholder="Price">
+          <small
+            v-if="messages['price']"
+            class="form-text text-danger">{{messages['price']}}</small>
         </div>
         <div class="form-group">
-          <input class="form-control" v-model="newBookModel.publisher" prop="publisher" placeholder="Publisher">
+          <input
+            class="form-control"
+            v-model="newBookModel.publisher"
+            prop="publisher"
+            placeholder="Publisher">
+          <small
+            v-if="messages['publisher']"
+            class="form-text text-danger">{{messages['publisher']}}</small>
         </div>
         <div class="form-group">
-          <input class="form-control" v-model="newBookModel.cover_url" prop="cover_url" placeholder="Cover URL">
+          <input
+            class="form-control"
+            v-model="newBookModel.cover_url"
+            prop="cover_url"
+            placeholder="Cover URL">
+          <small
+            v-if="messages['cover_url']"
+            class="form-text text-danger">{{messages['cover_url']}}</small>
         </div>
         <div class="form-group book-cover">
           <img
@@ -70,11 +106,11 @@ export default {
     return {
       addBookVisibility: false,
       newBookModel: {
-        title: 'Educated: A Memoir',
-        author: 'Tara Westover',
-        price: 20.4,
-        publisher: 'Amazon',
-        cover_url: 'https://images-na.ssl-images-amazon.com/images/I/41dIDDpGepL._SX342_.jpg',
+        title: null,
+        author: null,
+        price: null,
+        publisher: null,
+        cover_url: null,
       },
       newBookModelRules: {
         title: baseRule,
@@ -84,6 +120,13 @@ export default {
           format: /(?:([^:/?#]+):)?(?:\/\/([^/?#]*))?([^?#]*\.(?:jpg|jpeg|gif|png))(?:\?([^#]*))?(?:#(.*))?/,
           message: 'This field is invalid.',
         },
+      },
+      messages: {
+        title: null,
+        author: null,
+        price: null,
+        publisher: null,
+        cover_url: null,
       },
     };
   },
@@ -109,6 +152,8 @@ export default {
           this.newBookModel,
           this.newBookModelRules);
 
+        this.addBookVisibility = false;
+
         await this.addNewBook({ book: this.newBookModel });
 
         this.$notify({
@@ -117,7 +162,9 @@ export default {
           type: 'success',
         });
       } catch (e) {
-        console.log(e);
+        e.forEach((item) => {
+          this.messages[item.prop] = item.message;
+        });
       }
     },
   },
