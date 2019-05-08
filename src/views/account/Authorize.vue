@@ -49,7 +49,7 @@ export default {
     if (this.token) {
       this.setUserToken({ token: this.token });
 
-      this.$router.push({ name: 'home' });
+      this.$router.push({ name: 'books' });
     } else {
       this.error = true;
     }

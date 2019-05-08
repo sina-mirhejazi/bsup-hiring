@@ -6,6 +6,10 @@ import {
   faTimes,
   faInfoCircle,
   faFlag,
+  faSearch,
+  faHandHoldingUsd,
+  faUserAlt,
+  faPlus,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
@@ -20,6 +24,10 @@ library.add(
   faTimes,
   faInfoCircle,
   faFlag,
+  faSearch,
+  faHandHoldingUsd,
+  faUserAlt,
+  faPlus,
 );
 
 Vue.component('font-awesome-icon', FontAwesomeIcon);

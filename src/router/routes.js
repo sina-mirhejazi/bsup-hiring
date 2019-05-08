@@ -1,11 +1,29 @@
 export default [
   {
     path: '/',
-    name: 'home',
     component: () => import(/* webpackChunkName: "home" */ '@/views/home/Layout.vue'),
+    redirect: '/books',
     meta: {
       auth: true,
     },
+    children: [
+      {
+        path: '/books',
+        name: 'books',
+        component: () => import(/* webpackChunkName: "home" */ '@/views/home/Books.vue'),
+        meta: {
+          title: 'Books',
+        },
+      },
+      {
+        path: '/other',
+        name: 'other',
+        component: () => import(/* webpackChunkName: "home" */ '@/views/home/Other.vue'),
+        meta: {
+          title: 'Other',
+        },
+      },
+    ],
   },
   {
     path: '/login',

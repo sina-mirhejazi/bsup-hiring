@@ -1,38 +1,35 @@
 /* eslint-disable import/prefer-default-export */
 import Vue from 'vue';
-import store from '@/store/index';
-import User from '@/services/apis/user';
-import { SET_USER_INFO } from '@/store/mutationTypes';
+import { FETCH_USER_INFO } from '@/store/actionTypes';
 
-async function fetchUserInfo(next) {
-  try {
-    const { data: { data: user } = {} } = await User.info();
+function getMeta({ meta, matched }) {
+  let result = Object.assign({}, meta);
 
-    store.commit(`auth/${SET_USER_INFO}`, { user });
 
-    next();
-  } catch (e) {
-    Vue.notify({
-      title: 'Error while getting user information',
-      message: e.message,
-      type: 'danger',
-    });
-  }
+  matched.forEach((match) => {
+    result = Object.assign(result, match.meta);
+  });
+
+  return result;
 }
 
-export function beforeEachRoute({ meta }, from, next) {
-  const { userToken, userInfo } = store.state.auth;
+export function beforeEachRoute(to, from, next) {
+  const { userToken, userInfo } = Vue.store.state.auth;
+  const meta = getMeta(to);
+
   if (meta.auth && !userToken) {
     next({ name: 'login' });
   } else if (meta.auth && userToken && !userInfo) {
-    fetchUserInfo(next);
+    Vue.store
+      .dispatch(`auth/${FETCH_USER_INFO}`)
+      .finally(next);
   } else {
     next();
   }
 }
 
 export function beforeEachRequest(data, { common }) {
-  const { userToken } = store.state.auth;
+  const { userToken } = Vue.store.state.auth;
 
   if (userToken) {
     // eslint-disable-next-line no-param-reassign

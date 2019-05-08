@@ -17,7 +17,11 @@ export default class HTTP {
 
     post(uri, args) {
       try {
-        return this.call.apply(this, ['POST', uri, args]);
+        return this.call.apply(this, ['POST', uri, args, {
+          headers: {
+            'content-type': 'application/json',
+          },
+        }]);
       } catch (e) {
         throw new Error(e);
       }
@@ -46,9 +50,17 @@ export default class HTTP {
         ...config,
         url,
         method,
-        params: query,
-        data: body,
       };
+
+      // if (query) {
+      //   request.params = query;
+      // }
+
+      if (body) {
+        request.params = body;
+      }
+
+      console.log(request);
 
       let res;
 
